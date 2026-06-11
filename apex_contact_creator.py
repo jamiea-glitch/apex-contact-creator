@@ -41,10 +41,7 @@ def build_phone_numbers(row: dict) -> str:
         if not number:
             return
         contact_type = (contact_type or "OTHER").strip().upper()
-        entry = {"contactType": contact_type, "phoneNumber": number.strip()}
-        label = (label or "").strip()
-        if label:
-            entry["label"] = label
+        entry = {"contactType": contact_type, "phoneNumber": number.strip(), "label": (label or "").strip()}
         entries.append(entry)
 
     # Multi-number columns
@@ -74,8 +71,8 @@ def csv_to_json(csv_path: str, cnc_id: str) -> list:
             if not name:
                 continue
 
-            notes = row.get("NOTES", "").strip() or None
-            short_name = row.get("SPEED_DIAL_SHORT_NAME", "").strip() or None
+            notes = row.get("NOTES", "").strip()
+            short_name = row.get("SPEED_DIAL_SHORT_NAME", "").strip()
             icon = resolve_icon(row.get("ICON", ""))
             disabled = int(row.get("DISABLED_TIMESTAMP", 0) or 0)
 
